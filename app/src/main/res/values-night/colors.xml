@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="color_scaffold_bg">#FF1E1E2C</color>
+    <color name="color_surface">#FF424242</color>
+    <color name="color_surface_alt">#FF616161</color>
+    <color name="color_text_primary">#FFFFFFFF</color>
+    <color name="color_text_secondary">@color/white_70</color>
+    <color name="color_text_tertiary">@color/white_60</color>
+    <color name="color_dialog_bg">@color/slate_800</color>
+    <color name="color_chip_bg">@color/slate_700</color>
+    <color name="color_chip_border">@color/slate_600</color>
+    <color name="color_cell_border">@color/slate_700</color>
+    <color name="color_divider">@color/slate_700</color>
+</resources>

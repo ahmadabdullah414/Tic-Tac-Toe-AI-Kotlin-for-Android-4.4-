@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Tic Tac Toe</string>
+    <string name="splash_title">Tic Tac Toe</string>
+    <string name="splash_subtitle">Get ready to play!</string>
+
+    <string name="hint_player_x">Player X Name</string>
+    <string name="hint_player_o">Player O Name</string>
+    <string name="match_type">Match Type</string>
+    <string name="single_match">Single Match</string>
+    <string name="best_of_3">Best of 3</string>
+    <string name="start_game">Start Game</string>
+    <string name="play_with_ai">Play With AI</string>
+    <string name="match_history">Match History</string>
+    <string name="please_enter_names">Please enter player names and select match count</string>
+    <string name="please_enter_your_name">Please enter your name</string>
+
+    <string name="choose_ai_difficulty">Choose AI Difficulty</string>
+    <string name="match_type_label">Match Type: %1$s</string>
+    <string name="difficulty_easy">Easy</string>
+    <string name="difficulty_easy_desc">Good chance to win</string>
+    <string name="difficulty_medium">Medium</string>
+    <string name="difficulty_medium_desc">Balanced challenge</string>
+    <string name="difficulty_hard">Hard</string>
+    <string name="difficulty_hard_desc">98% chance of loss</string>
+
+    <string name="determining_first_turn">Determining First Turn…</string>
+    <string name="goes_first">%1$s goes first!</string>
+
+    <string name="turn_of">It\'s %1$s\'s turn</string>
+    <string name="your_turn_x">Your turn (X)</string>
+    <string name="ai_turn">AI\'s turn…</string>
+    <string name="reset_game">Reset Game</string>
+    <string name="main_menu">Main Menu</string>
+    <string name="next_match">Next Match</string>
+    <string name="continue_label">Continue</string>
+
+    <string name="wins_title">%1$s Wins!</string>
+    <string name="wins_message">%1$s has won this round!</string>
+    <string name="ai_wins_title">AI Wins!</string>
+    <string name="ai_wins_message">AI won this round!</string>
+    <string name="you_win_message">Congratulations! You won this round!</string>
+    <string name="draw_title">Draw!</string>
+    <string name="draw_message">The game ended in a draw!</string>
+    <string name="matches_played">Matches played: %1$d/%2$d</string>
+
+    <string name="tournament_over">Tournament Over</string>
+    <string name="tournament_winner">%1$s wins the tournament!</string>
+    <string name="tournament_ai_winner">AI wins the tournament!</string>
+    <string name="tournament_draw">The tournament ended in a draw!</string>
+    <string name="final_score">Final Score</string>
+    <string name="vs">VS</string>
+
+    <string name="match_history_title">Match History</string>
+    <string name="no_history">No match history yet</string>
+    <string name="clear_history_title">Clear History</string>
+    <string name="clear_history_message">Are you sure you want to clear all match history?</string>
+    <string name="cancel">Cancel</string>
+    <string name="clear">Clear</string>
+    <string name="winner_label">Winner: %1$s</string>
+    <string name="score_label">Score: %1$d - %2$d</string>
+    <string name="difficulty_label">Difficulty: %1$s</string>
+    <string name="vs_ai">%1$s vs AI</string>
+    <string name="vs_human">%1$s vs %2$s</string>
+    <string name="just_now">Just now</string>
+    <string name="minutes_ago">%1$dm ago</string>
+    <string name="hours_ago">%1$dh ago</string>
+    <string name="yesterday">Yesterday</string>
+    <string name="days_ago">%1$dd ago</string>
+</resources>

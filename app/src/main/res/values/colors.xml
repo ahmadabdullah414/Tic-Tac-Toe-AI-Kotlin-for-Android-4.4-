@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Fixed brand colors (same in both themes, mirrors literal Flutter Color constants) -->
+    <color name="brand_purple">#FF9C27B0</color>
+    <color name="brand_purple_deep_accent">#FFE040FB</color>
+    <color name="brand_orange">#FFFF9800</color>
+    <color name="brand_indigo">#FF6366F1</color>
+    <color name="brand_indigo_light">#FF818CF8</color>
+    <color name="brand_amber_custom">#FFF59E0B</color>
+    <color name="brand_amber">#FFFFC107</color>
+    <color name="brand_green_win">#FF10B981</color>
+    <color name="brand_green">#FF4CAF50</color>
+    <color name="brand_green_dark">#FF388E3C</color>
+    <color name="brand_red">#FFF44336</color>
+    <color name="brand_blue">#FF2196F3</color>
+    <color name="brand_grey_100">#FFF5F5F5</color>
+    <color name="brand_grey_300">#FFE0E0E0</color>
+    <color name="brand_grey_400">#FFBDBDBD</color>
+    <color name="brand_grey_500">#FF9E9E9E</color>
+    <color name="brand_grey_600">#FF757575</color>
+    <color name="brand_grey_700">#FF616161</color>
+    <color name="brand_grey_800">#FF424242</color>
+    <color name="slate_600">#FF475569</color>
+    <color name="slate_700">#FF334155</color>
+    <color name="slate_800">#FF1E293B</color>
+    <color name="white_70">#B3FFFFFF</color>
+    <color name="white_60">#99FFFFFF</color>
+    <color name="white_54">#8AFFFFFF</color>
+    <color name="black_87">#DE000000</color>
+    <color name="scrim_70">#B3000000</color>
+
+    <!-- Adaptive theme colors: light values -->
+    <color name="color_scaffold_bg">#FFEFF6FF</color>
+    <color name="color_surface">#FFFFFFFF</color>
+    <color name="color_surface_alt">#FFFFFFFF</color>
+    <color name="color_text_primary">#FF000000</color>
+    <color name="color_text_secondary">@color/black_87</color>
+    <color name="color_text_tertiary">#FF757575</color>
+    <color name="color_dialog_bg">#FFFFFFFF</color>
+    <color name="color_chip_bg">@color/brand_grey_100</color>
+    <color name="color_chip_border">@color/brand_grey_300</color>
+    <color name="color_cell_border">#FFEEEEEE</color>
+    <color name="color_divider">@color/brand_grey_300</color>
+</resources>

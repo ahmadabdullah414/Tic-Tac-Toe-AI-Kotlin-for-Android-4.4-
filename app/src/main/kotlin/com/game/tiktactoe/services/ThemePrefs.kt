@@ -15,7 +15,7 @@ object ThemePrefs {
     fun setDarkMode(context: Context, isDark: Boolean) {
         val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         prefs.edit().putBoolean(KEY_DARK_MODE, isDark).apply()
-        applyNightMode(isDark)
+
     }
 
     fun applyNightMode(isDark: Boolean) {

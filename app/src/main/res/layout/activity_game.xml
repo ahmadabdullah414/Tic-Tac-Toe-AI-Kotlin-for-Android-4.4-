@@ -1,199 +1,182 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/rootContainer"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/color_scaffold_bg">
+    android:layout_height="match_parent">
 
-    <ScrollView
+    <LinearLayout
         android:id="@+id/contentScroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:orientation="vertical"
+        android:paddingStart="20dp"
+        android:paddingTop="4dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="12dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="end"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/themeToggleButton"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="@null"
+                android:contentDescription="@null"
+                android:padding="10dp"
+                app:srcCompat="@drawable/ic_moon" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/statusText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/color_text_primary"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:baselineAligned="false"
             android:gravity="center_vertical"
-            android:orientation="vertical"
-            android:paddingStart="20dp"
-            android:paddingTop="8dp"
-            android:paddingEnd="20dp"
-            android:paddingBottom="16dp">
+            android:orientation="horizontal">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="end"
-                android:orientation="horizontal">
-
-                <ImageButton
-                    android:id="@+id/themeToggleButton"
-                    android:layout_width="44dp"
-                    android:layout_height="44dp"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="@null"
-                    android:padding="10dp"
-                    android:src="@drawable/ic_moon" />
-            </LinearLayout>
+            <com.game.tiktactoe.ui.ScoreCardView
+                android:id="@+id/scoreCardLeft"
+                android:layout_width="96dp"
+                android:layout_height="80dp" />
 
             <TextView
-                android:id="@+id/statusText"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_weight="1"
                 android:gravity="center"
-                android:textColor="@color/color_text_primary"
-                android:textSize="18sp"
+                android:text="@string/vs"
+                android:textColor="@color/color_text_secondary"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
-                android:baselineAligned="false"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+            <com.game.tiktactoe.ui.ScoreCardView
+                android:id="@+id/scoreCardRight"
+                android:layout_width="96dp"
+                android:layout_height="80dp" />
+        </LinearLayout>
 
-                <com.game.tiktactoe.ui.ScoreCardView
-                    android:id="@+id/scoreCardLeft"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="@string/vs"
-                    android:textColor="@color/color_text_secondary"
-                    android:textSize="16sp" />
-
-                <com.game.tiktactoe.ui.ScoreCardView
-                    android:id="@+id/scoreCardRight"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp" />
-            </LinearLayout>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1">
 
             <com.game.tiktactoe.ui.SquareBoardContainer
                 android:id="@+id/boardContainer"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="18dp">
+                android:layout_height="match_parent"
+                android:layout_gravity="center">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
 
-                        <com.game.tiktactoe.ui.SquareCell
-                            android:id="@+id/cell0"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="4dp"
-                            android:layout_marginBottom="4dp"
-                            android:layout_weight="1"
-                            android:textStyle="bold" />
+                <com.game.tiktactoe.ui.SquareCell
+                    android:id="@+id/cell0"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:layout_weight="1"
+                    android:textStyle="bold" />
 
-                        <com.game.tiktactoe.ui.SquareCell
-                            android:id="@+id/cell1"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="4dp"
-                            android:layout_marginEnd="4dp"
-                            android:layout_marginBottom="4dp"
-                            android:layout_weight="1"
-                            android:textStyle="bold" />
+                <com.game.tiktactoe.ui.SquareCell
+                    android:id="@+id/cell1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:layout_weight="1"
+                    android:textStyle="bold" />
 
-                        <com.game.tiktactoe.ui.SquareCell
-                            android:id="@+id/cell2"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="4dp"
-                            android:layout_marginBottom="4dp"
-                            android:layout_weight="1"
-                            android:textStyle="bold" />
-                    </LinearLayout>
+                <com.game.tiktactoe.ui.SquareCell
+                    android:id="@+id/cell2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:layout_weight="1"
+                    android:textStyle="bold" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:orientation="horizontal">
+                <com.game.tiktactoe.ui.SquareCell
+                    android:id="@+id/cell3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:layout_weight="1"
+                    android:textStyle="bold" />
 
-                        <com.game.tiktactoe.ui.SquareCell
-                            android:id="@+id/cell3"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="4dp"
-                            android:layout_marginTop="4dp"
-                            android:layout_marginBottom="4dp"
-                            android:layout_weight="1"
-                            android:textStyle="bold" />
+                <com.game.tiktactoe.ui.SquareCell
+                    android:id="@+id/cell4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:layout_weight="1"
+                    android:textStyle="bold" />
 
-                        <com.game.tiktactoe.ui.SquareCell
-                            android:id="@+id/cell4"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="4dp"
-                            android:layout_marginEnd="4dp"
-                            android:layout_marginTop="4dp"
-                            android:layout_marginBottom="4dp"
-                            android:layout_weight="1"
-                            android:textStyle="bold" />
+                <com.game.tiktactoe.ui.SquareCell
+                    android:id="@+id/cell5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:layout_weight="1"
+                    android:textStyle="bold" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
 
-                        <com.game.tiktactoe.ui.SquareCell
-                            android:id="@+id/cell5"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="4dp"
-                            android:layout_marginTop="4dp"
-                            android:layout_marginBottom="4dp"
-                            android:layout_weight="1"
-                            android:textStyle="bold" />
-                    </LinearLayout>
+                <com.game.tiktactoe.ui.SquareCell
+                    android:id="@+id/cell6"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:layout_weight="1"
+                    android:textStyle="bold" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:orientation="horizontal">
+                <com.game.tiktactoe.ui.SquareCell
+                    android:id="@+id/cell7"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:layout_weight="1"
+                    android:textStyle="bold" />
 
-                        <com.game.tiktactoe.ui.SquareCell
-                            android:id="@+id/cell6"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="4dp"
-                            android:layout_marginTop="4dp"
-                            android:layout_weight="1"
-                            android:textStyle="bold" />
+                <com.game.tiktactoe.ui.SquareCell
+                    android:id="@+id/cell8"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:layout_weight="1"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
-                        <com.game.tiktactoe.ui.SquareCell
-                            android:id="@+id/cell7"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="4dp"
-                            android:layout_marginEnd="4dp"
-                            android:layout_marginTop="4dp"
-                            android:layout_weight="1"
-                            android:textStyle="bold" />
-
-                        <com.game.tiktactoe.ui.SquareCell
-                            android:id="@+id/cell8"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="4dp"
-                            android:layout_marginTop="4dp"
-                            android:layout_weight="1"
-                            android:textStyle="bold" />
-                    </LinearLayout>
                 </LinearLayout>
             </com.game.tiktactoe.ui.SquareBoardContainer>
 
@@ -202,42 +185,44 @@
                 style="?android:attr/progressBarStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="16dp"
+                android:layout_gravity="bottom|center_horizontal"
                 android:visibility="gone" />
+        </FrameLayout>
 
-            <LinearLayout
-                android:id="@+id/actionButtons"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:orientation="vertical">
+        <LinearLayout
+            android:id="@+id/actionButtons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/resetButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="52dp"
-                    android:backgroundTint="@color/brand_purple"
-                    android:text="@string/reset_game"
-                    android:textAllCaps="false"
-                    android:textColor="@android:color/white"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/resetButton"
+                android:layout_width="0dp"
+                android:layout_height="56dp"
+                android:layout_marginEnd="6dp"
+                android:layout_weight="1"
+                android:maxLines="1"
+                android:text="@string/reset_game"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textSize="13sp"
+                android:textStyle="bold" />
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/mainMenuButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="52dp"
-                    android:layout_marginTop="12dp"
-                    android:backgroundTint="@color/brand_orange"
-                    android:text="@string/main_menu"
-                    android:textAllCaps="false"
-                    android:textColor="@android:color/white"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/mainMenuButton"
+                android:layout_width="0dp"
+                android:layout_height="56dp"
+                android:layout_marginStart="6dp"
+                android:layout_weight="1"
+                android:maxLines="1"
+                android:text="@string/main_menu"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textSize="13sp"
+                android:textStyle="bold" />
         </LinearLayout>
-    </ScrollView>
+
+    </LinearLayout>
 
 </FrameLayout>

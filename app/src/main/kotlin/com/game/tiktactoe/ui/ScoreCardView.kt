@@ -20,7 +20,7 @@ class ScoreCardView @JvmOverloads constructor(
         orientation = VERTICAL
         gravity = Gravity.CENTER
         val pad = (12 * resources.displayMetrics.density).toInt()
-        setPadding(pad, pad, pad, pad)
+        setPadding(pad, pad, pad, pad + (5 * resources.displayMetrics.density).toInt())
 
         nameView = TextView(context).apply {
             gravity = Gravity.CENTER
@@ -42,17 +42,14 @@ class ScoreCardView @JvmOverloads constructor(
     fun bind(name: String, score: Int, accentColor: Int, highlighted: Boolean) {
         val displayName = if (name.length > 10) name.substring(0, 10) else name
         nameView.text = displayName
-        nameView.setTextColor(accentColor)
+        nameView.setTextColor(if (highlighted) 0xFFFFFFFF.toInt() else accentColor)
         scoreView.text = score.toString()
+        scoreView.setTextColor(if (highlighted) 0xFFFFFFFF.toInt() else Shapes.colorRes(context, R.color.color_text_primary))
 
         background = if (highlighted) {
-            Shapes.roundedRect(
-                context, 8f,
-                Shapes.colorWithAlpha(Shapes.colorRes(context, R.color.brand_green), 0.3f),
-                Shapes.colorRes(context, R.color.brand_green), 2f
-            )
+            Shapes.raised(context, 16f, Shapes.colorRes(context, R.color.brand_green), 5f)
         } else {
-            Shapes.roundedRect(context, 8f, Shapes.colorRes(context, R.color.color_surface))
+            Shapes.raised(context, 16f, Shapes.colorRes(context, R.color.color_surface), 5f)
         }
     }
 }

@@ -11,19 +11,17 @@ import android.widget.ImageButton
 import android.widget.ScrollView
 import androidx.appcompat.app.AppCompatActivity
 import com.game.tiktactoe.R
-import com.game.tiktactoe.model.MatchRecord
 import com.game.tiktactoe.services.GameStateManager
-import com.game.tiktactoe.services.MatchHistoryService
 import com.game.tiktactoe.services.WinChecker
 
-class TwoPlayerGameActivity : AppCompatActivity() {
+class TwoPlayerGameActivity : ThemedActivity() {
 
     private lateinit var playerXName: String
     private lateinit var playerOName: String
     private var matchCount = 1
 
     private val board = MutableList(9) { "" }
-    private lateinit var currentPlayer: String
+    private var currentPlayer: String = "X"
     private var gameActive = false
     private val scores = mutableMapOf("X" to 0, "O" to 0)
     private var winningCells: IntArray? = null
@@ -32,7 +30,8 @@ class TwoPlayerGameActivity : AppCompatActivity() {
     private var turnOrder: List<String>? = null
 
     private lateinit var rootContainer: FrameLayout
-    private lateinit var contentScroll: ScrollView
+    private lateinit var contentScroll: View
+    private lateinit var winLine: WinLineView
     private lateinit var statusText: android.widget.TextView
     private lateinit var scoreCardX: ScoreCardView
     private lateinit var scoreCardO: ScoreCardView
@@ -44,6 +43,7 @@ class TwoPlayerGameActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
+        Shapes.applyScreenBackground(this)
 
         playerXName = intent.getStringExtra(MainMenuActivity.EXTRA_PLAYER_X) ?: "Player X"
         playerOName = intent.getStringExtra(MainMenuActivity.EXTRA_PLAYER_O) ?: "Player O"
@@ -63,17 +63,56 @@ class TwoPlayerGameActivity : AppCompatActivity() {
             findViewById(R.id.cell3), findViewById(R.id.cell4), findViewById(R.id.cell5),
             findViewById(R.id.cell6), findViewById(R.id.cell7), findViewById(R.id.cell8)
         )
+        winLine = WinLineView(this)
+        findViewById<android.view.ViewGroup>(R.id.boardContainer).addView(winLine, android.view.ViewGroup.LayoutParams(android.view.ViewGroup.LayoutParams.MATCH_PARENT, android.view.ViewGroup.LayoutParams.MATCH_PARENT))
         cells.forEachIndexed { index, cell -> cell.setOnClickListener { handleCellClick(index) } }
 
         val resetButton = findViewById<com.google.android.material.button.MaterialButton>(R.id.resetButton)
         val mainMenuButton = findViewById<com.google.android.material.button.MaterialButton>(R.id.mainMenuButton)
         Shapes.styleButtonIcon(resetButton, R.drawable.ic_refresh)
+        Shapes.style3d(resetButton, 18f, Shapes.colorRes(this, R.color.brand_purple), 6f)
         Shapes.styleButtonIcon(mainMenuButton, R.drawable.ic_home)
+        Shapes.style3d(mainMenuButton, 18f, Shapes.colorRes(this, R.color.brand_orange), 6f)
         resetButton.setOnClickListener { showShuffle() }
         mainMenuButton.setOnClickListener { goToMainMenu() }
 
-        if (matchCount == 3) initializeTurnOrder()
-        showShuffle()
+        val restored = restoredState(savedInstanceState)
+        if (restored != null) {
+            // Theme switch: carry on exactly where the previous copy of this screen was.
+            restoreState(restored)
+            renderBoard()
+            updateScoreCards()
+            updateStatusText()
+        } else {
+            if (matchCount == 3) initializeTurnOrder()
+            showShuffle()
+        }
+    }
+
+    override fun canSwitchTheme(): Boolean = gameActive
+
+    override fun saveThemeSwitchState(out: Bundle) {
+        out.putStringArray("board", board.toTypedArray())
+        out.putString("currentPlayer", currentPlayer)
+        out.putBoolean("gameActive", gameActive)
+        out.putInt("scoreX", scores["X"] ?: 0)
+        out.putInt("scoreO", scores["O"] ?: 0)
+        out.putIntArray("winningCells", winningCells)
+        out.putInt("matchesPlayed", matchesPlayed)
+        out.putString("tournamentWinner", tournamentWinner)
+        turnOrder?.let { out.putStringArray("turnOrder", it.toTypedArray()) }
+    }
+
+    private fun restoreState(s: Bundle) {
+        s.getStringArray("board")?.forEachIndexed { i, v -> if (i < board.size) board[i] = v }
+        currentPlayer = s.getString("currentPlayer") ?: "X"
+        gameActive = s.getBoolean("gameActive", true)
+        scores["X"] = s.getInt("scoreX")
+        scores["O"] = s.getInt("scoreO")
+        winningCells = s.getIntArray("winningCells")
+        matchesPlayed = s.getInt("matchesPlayed")
+        tournamentWinner = s.getString("tournamentWinner")
+        turnOrder = s.getStringArray("turnOrder")?.toList()
     }
 
     private fun initializeTurnOrder() {
@@ -81,12 +120,13 @@ class TwoPlayerGameActivity : AppCompatActivity() {
     }
 
     private fun showShuffle() {
-        contentScroll.visibility = View.INVISIBLE
+        renderBoard()
+        updateScoreCards()
         val predetermined = turnOrder?.let { it[matchesPlayed] == "X" }
         val view = TurnShuffleView(
             this,
-            color1 = Shapes.colorRes(this, R.color.brand_purple),
-            color2 = Shapes.colorRes(this, R.color.brand_orange),
+            color1 = Shapes.xBlock(this),
+            color2 = Shapes.oBlock(this),
             player1Name = playerXName,
             player2Name = playerOName,
             predeterminedResult = predetermined,
@@ -117,26 +157,27 @@ class TwoPlayerGameActivity : AppCompatActivity() {
     }
 
     private fun updateScoreCards() {
-        scoreCardX.bind(playerXName, scores["X"] ?: 0, Shapes.colorRes(this, R.color.brand_purple), currentPlayer == "X")
-        scoreCardO.bind(playerOName, scores["O"] ?: 0, Shapes.colorRes(this, R.color.brand_orange), currentPlayer == "O")
+        scoreCardX.bind(playerXName, scores["X"] ?: 0, Shapes.xAccent(this), currentPlayer == "X")
+        scoreCardO.bind(playerOName, scores["O"] ?: 0, Shapes.oAccent(this), currentPlayer == "O")
     }
 
     private fun renderBoard() {
         for (i in cells.indices) {
             val cell = cells[i]
             val value = board[i]
-            cell.text = value
+            cell.mark = value
             val isWinning = winningCells?.contains(i) == true
             cell.setTextColor(
-                if (value == "X") Shapes.colorRes(this, R.color.brand_indigo)
-                else Shapes.colorRes(this, R.color.brand_amber_custom)
+                if (value == "X") Shapes.xMark(this)
+                else Shapes.oMark(this)
             )
-            cell.textSize = 32f
             val fill = if (isWinning) Shapes.colorWithAlpha(Shapes.colorRes(this, R.color.brand_green_win), 0.3f)
                 else Shapes.colorRes(this, R.color.color_surface)
             val stroke = if (isWinning) Shapes.colorRes(this, R.color.brand_green_win)
                 else Shapes.colorRes(this, R.color.color_cell_border)
-            cell.background = Shapes.roundedRect(this, 16f, fill, stroke, if (isWinning) 2.5f else 1.5f)
+            cell.background = Shapes.raised(this, 18f, if (isWinning) Shapes.tint(Shapes.colorRes(this, R.color.brand_green_win), 0.55f) else fill.let { Shapes.colorRes(this, R.color.color_surface) }, 6f)
+            cell.setPadding(0, 0, 0, (6 * resources.displayMetrics.density).toInt())
+            if (i == cells.lastIndex) winLine.show(winningCells)
         }
     }
 
@@ -222,28 +263,12 @@ class TwoPlayerGameActivity : AppCompatActivity() {
                     showTournamentResult()
                 }
             }.show()
-        }, 1000)
+        }, 1500)
     }
 
     private fun showTournamentResult() {
         val winner = tournamentWinner
         val winnerMessage = if (winner != null) getString(R.string.tournament_winner, winner) else getString(R.string.tournament_draw)
-
-        MatchHistoryService.addMatch(
-            this,
-            MatchRecord(
-                id = System.currentTimeMillis().toString(),
-                gameType = "human",
-                player1Name = playerXName,
-                player2Name = playerOName,
-                winner = winner ?: "Draw",
-                player1Score = scores["X"] ?: 0,
-                player2Score = scores["O"] ?: 0,
-                matchCount = matchCount,
-                difficulty = "",
-                dateTimeMillis = System.currentTimeMillis()
-            )
-        )
 
         handler.postDelayed({
             if (isFinishing) return@postDelayed

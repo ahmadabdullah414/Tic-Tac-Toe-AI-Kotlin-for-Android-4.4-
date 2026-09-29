@@ -14,6 +14,7 @@ class TicTacToeApp : MultiDexApplication() {
 
     override fun onCreate() {
         super.onCreate()
+        androidx.appcompat.app.AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
         ThemePrefs.applyNightMode(ThemePrefs.isDarkMode(this))
         GameStateManager.resetAll()
     }

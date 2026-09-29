@@ -11,11 +11,18 @@ import com.game.tiktactoe.services.ThemePrefs
 object ThemeToggle {
     fun bind(activity: AppCompatActivity, button: ImageButton) {
         val isDark = ThemePrefs.isDarkMode(activity)
-        button.setImageResource(if (isDark) R.drawable.ic_sun else R.drawable.ic_moon)
+        button.setImageDrawable(Shapes.drawable(activity, if (isDark) R.drawable.ic_sun else R.drawable.ic_moon))
         ImageViewCompat.setImageTintList(button, ColorStateList.valueOf(Shapes.colorRes(activity, R.color.color_text_primary)))
         button.setOnClickListener {
+            val themed = activity as? ThemedActivity
+            if (themed != null && !themed.canSwitchTheme()) return@setOnClickListener
             ThemePrefs.setDarkMode(activity, !isDark)
-            activity.recreate()
+            // Cross-fade into a fresh copy of this screen in the new theme instead of recreate()
+            // (recreate() shows a black frame on older Android). The copy inherits the screen's state,
+            // so a game in progress carries on untouched.
+            activity.startActivity(themed?.relaunchIntent() ?: android.content.Intent(activity.intent))
+            activity.finish()
+            activity.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         }
     }
 }

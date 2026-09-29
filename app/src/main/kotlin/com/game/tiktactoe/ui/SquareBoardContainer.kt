@@ -17,8 +17,9 @@ class SquareBoardContainer @JvmOverloads constructor(
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         val parentWidth = android.view.View.MeasureSpec.getSize(widthMeasureSpec)
+        val parentHeight = android.view.View.MeasureSpec.getSize(heightMeasureSpec).let { if (it <= 0) Int.MAX_VALUE else it }
         val maxSizePx = (440 * resources.displayMetrics.density).toInt()
-        val size = min((parentWidth * 0.86f).toInt(), maxSizePx)
+        val size = min(min(parentWidth, parentHeight), maxSizePx)
         val exactSpec = android.view.View.MeasureSpec.makeMeasureSpec(size, android.view.View.MeasureSpec.EXACTLY)
         super.onMeasure(exactSpec, exactSpec)
     }

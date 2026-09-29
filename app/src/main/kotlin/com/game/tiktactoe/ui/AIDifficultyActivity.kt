@@ -9,11 +9,12 @@ import androidx.appcompat.app.AppCompatActivity
 import com.game.tiktactoe.R
 import com.game.tiktactoe.services.AIDifficulty
 
-class AIDifficultyActivity : AppCompatActivity() {
+class AIDifficultyActivity : ThemedActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ai_difficulty)
+        Shapes.applyScreenBackground(this)
 
         val playerName = intent.getStringExtra(MainMenuActivity.EXTRA_PLAYER_NAME) ?: "Player"
         val matchCount = intent.getIntExtra(MainMenuActivity.EXTRA_MATCH_COUNT, 1)
@@ -23,17 +24,7 @@ class AIDifficultyActivity : AppCompatActivity() {
         backButton.setColorFilter(Shapes.colorRes(this, R.color.color_text_primary))
         backButton.setOnClickListener { onBackPressedCompat() }
 
-        findViewById<android.view.View>(R.id.headerCard).background = Shapes.roundedRect(
-            this, 20f,
-            Shapes.colorWithAlpha(Shapes.colorRes(this, R.color.color_surface), 0.7f),
-            Shapes.colorWithAlpha(Shapes.colorRes(this, R.color.brand_indigo), 0.2f), 1.5f
-        )
-        findViewById<ImageView>(R.id.headerIcon).setColorFilter(Shapes.colorRes(this, R.color.brand_indigo))
 
-        findViewById<TextView>(R.id.matchTypeLabel).text = getString(
-            R.string.match_type_label,
-            if (matchCount == 1) getString(R.string.single_match) else getString(R.string.best_of_3)
-        )
 
         configureRow(
             rowId = R.id.difficultyEasy,
@@ -78,11 +69,10 @@ class AIDifficultyActivity : AppCompatActivity() {
         matchCount: Int
     ) {
         val row = findViewById<android.view.View>(rowId)
-        row.background = Shapes.roundedRect(this, 20f, color)
+        Shapes.style3d(row, 24f, color, 7f)
 
-        row.findViewById<ImageView>(R.id.rowIcon).setImageResource(icon)
+        row.findViewById<ImageView>(R.id.rowIcon).setImageDrawable(Shapes.drawable(this, icon))
         row.findViewById<TextView>(R.id.rowTitle).text = title
-        row.findViewById<TextView>(R.id.rowDescription).text = description
 
         row.setOnClickListener {
             val intent = Intent(this, AIGameActivity::class.java).apply {

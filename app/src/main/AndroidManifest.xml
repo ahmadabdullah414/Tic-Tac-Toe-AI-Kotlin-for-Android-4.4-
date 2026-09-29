@@ -12,6 +12,7 @@
         <activity
             android:name=".ui.SplashActivity"
             android:exported="true"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.TicTacToe.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,23 +23,23 @@
         <activity
             android:name=".ui.MainMenuActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustNothing" />
 
         <activity
             android:name=".ui.AIDifficultyActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".ui.TwoPlayerGameActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".ui.AIGameActivity"
-            android:exported="false" />
-
-        <activity
-            android:name=".ui.MatchHistoryActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
 
     </application>
 </manifest>

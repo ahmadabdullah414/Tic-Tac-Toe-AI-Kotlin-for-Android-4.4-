@@ -55,11 +55,12 @@ object GameDialogs {
             background = Shapes.circle(context, Shapes.colorWithAlpha(accentColor, 0.2f))
         }
         val iconView = ImageView(context).apply {
-            setImageResource(iconRes)
+            setImageDrawable(Shapes.drawable(context, iconRes))
+            setColorFilter(accentColor)
             setPadding(context.dp(12))
         }
         iconWrap.addView(iconView, ViewGroup.LayoutParams(context.dp(iconSizeDp + 24), context.dp(iconSizeDp + 24)))
-        card.addView(iconWrap)
+        card.addView(iconWrap, LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT))
 
         val titleView = TextView(context).apply {
             text = title
@@ -91,7 +92,7 @@ object GameDialogs {
             setTextColor(0xFFFFFFFF.toInt())
             cornerRadius = context.dp(12)
             if (buttonIcon != null) {
-                icon = androidx.core.content.ContextCompat.getDrawable(context, buttonIcon)
+                icon = Shapes.drawable(context, buttonIcon)
                 iconTint = android.content.res.ColorStateList.valueOf(0xFFFFFFFF.toInt())
                 iconGravity = MaterialButton.ICON_GRAVITY_TEXT_START
             }
@@ -178,8 +179,8 @@ object GameDialogs {
             orientation = LinearLayout.HORIZONTAL
             gravity = Gravity.CENTER
         }
-        val columnParams = LinearLayout.LayoutParams(context.dp(110), LinearLayout.LayoutParams.WRAP_CONTENT)
-        row.addView(scoreColumn(context, name1, score1, Shapes.colorRes(context, R.color.brand_purple)), columnParams)
+        val columnParams = LinearLayout.LayoutParams(context.dp(120), LinearLayout.LayoutParams.WRAP_CONTENT)
+        row.addView(scoreColumn(context, name1, score1, Shapes.xAccent(context)), columnParams)
         row.addView(TextView(context).apply {
             text = context.getString(R.string.vs)
             setTextColor(Shapes.colorRes(context, R.color.color_text_tertiary))
@@ -188,7 +189,7 @@ object GameDialogs {
             val p = context.dp(16)
             setPadding(p, 0, p, 0)
         })
-        row.addView(scoreColumn(context, name2, score2, Shapes.colorRes(context, R.color.brand_orange)), LinearLayout.LayoutParams(columnParams))
+        row.addView(scoreColumn(context, name2, score2, Shapes.oAccent(context)), LinearLayout.LayoutParams(columnParams))
         container.addView(row, marginTopParams(context, 12))
 
         return container
@@ -243,11 +244,11 @@ object GameDialogs {
             background = Shapes.circle(context, Shapes.colorWithAlpha(Shapes.colorRes(context, R.color.brand_red), 0.2f))
         }
         val icon = ImageView(context).apply {
-            setImageResource(R.drawable.ic_warning)
+            setImageDrawable(Shapes.drawable(context, R.drawable.ic_warning))
             setPadding(context.dp(12))
         }
         iconWrap.addView(icon, ViewGroup.LayoutParams(context.dp(72), context.dp(72)))
-        card.addView(iconWrap)
+        card.addView(iconWrap, LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT))
 
         card.addView(TextView(context).apply {
             text = title

@@ -5,7 +5,7 @@
         <item name="colorPrimary">@color/brand_purple</item>
         <item name="colorPrimaryDark">@color/brand_purple</item>
         <item name="colorAccent">@color/brand_indigo_light</item>
-        <item name="android:windowBackground">@color/color_scaffold_bg</item>
+        <item name="android:windowBackground">@drawable/bg_screen</item>
         <item name="android:windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
         <item name="android:statusBarColor">@color/color_scaffold_bg</item>
